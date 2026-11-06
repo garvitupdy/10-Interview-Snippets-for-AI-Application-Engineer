@@ -49,7 +49,7 @@ def reciprocal_rank_fusion(
     
     return sorted_fusion_results
 
-# --- Example Usage & Verification ---
+# Example Usage & Verification
 if __name__ == "__main__":
     # Backend 1: BM25 (Keyword Search) - excels at exact keyword matches
     bm25_results = ["doc_A", "doc_B", "doc_C", "doc_D"]
