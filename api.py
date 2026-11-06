@@ -3,7 +3,8 @@ Snippet: Resilient API Wrapper with Exponential Backoff and Jitter
 Difficulty: Advanced
 
 Interview Context:
-Production AI applications rely heavily on external LLM APIs (OpenAI, Anthropic) that frequently experience transient network glitches, load shedding, and strict rate limits (HTTP 429). Interviewers ask for this to evaluate your understanding of distributed systems resilience, specifically how to prevent the "thundering herd" problem using randomized jitter and how to handle non-retryable client errors gracefully.
+Production AI applications rely heavily on external LLM APIs (OpenAI, Anthropic) that frequently experience transient network glitches, load shedding, and strict rate limits (HTTP 429). 
+Interviewers ask for this to evaluate your understanding of distributed systems resilience, specifically how to prevent the "thundering herd" problem using randomized jitter and how to handle non-retryable client errors gracefully.
 """
 
 import time
@@ -106,7 +107,7 @@ def resilient_api_call(
         return wrapper
     return decorator
 
-# --- Example Usage & Verification ---
+
 
 # A mock function simulating an unstable API endpoint
 class MockAPIServer:
