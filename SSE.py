@@ -3,7 +3,9 @@ Snippet: Asynchronous Server-Sent Events (SSE) Stream Processor for LLMs
 Difficulty: Advanced
 
 Interview Context:
-Real-time streaming is essential for lowering perceived latency (Time To First Token) in chat interfaces. Interviewers evaluate your knowledge of asynchronous I/O (`asyncio`), HTTP chunked transfer encoding, and how to robustly parse line-delimited Server-Sent Events (SSE) while handling malformed payloads and stream termination signals like '[DONE]'.
+Real-time streaming is essential for lowering perceived latency (Time To First Token) in chat interfaces.
+Interviewers evaluate your knowledge of asynchronous I/O (`asyncio`), HTTP chunked transfer encoding, and how to robustly parse line delimited Server Sent Events (SSE) 
+while handling malformed payloads and stream termination signals like '[DONE]'.
 """
 
 import asyncio
@@ -90,7 +92,7 @@ async def main():
         print(token, end="", flush=True) # flush=True ensures instant terminal output
         full_response.append(token)
         
-    print(f"\n\n--- Stream Completed. Total tokens received: {len(full_response)} ---")
+    print(f" Stream Completed. Total tokens received: {len(full_response)}")
 
 if __name__ == "__main__":
     # Run the async event loop
