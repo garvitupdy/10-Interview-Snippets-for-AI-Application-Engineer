@@ -121,33 +121,32 @@ def run(self, question: str, llm_client: Callable[[str], str]):
 1. Define some tools
 def get_stock_price(symbol: str):
 """Returns the current stock price of a company."""
-# Mock data
-prices = {"AAPL": 150.0, "GOOG": 2800.0, "TSLA": 700.0}
-return prices.get(symbol.upper(), "Symbol not found.")
+        prices = {"AAPL": 150.0, "GOOG": 2800.0, "TSLA": 700.0}
+        return prices.get(symbol.upper(), "Symbol not found.")
+
 def calculate_investment(args_str: str):
 """Calculates value: 'price * shares'. Input format: 'price, shares'"""
-try:
-price, shares = map(float, args_str.split(","))
-return price * shares
-except:
-return "Invalid input format. Use 'price, shares'"
-2. Mock LLM Client
-In a real scenario, this would call OpenAI/Anthropic.
-Here, we simulate the model's "Thought/Action" logic.
+       try:
+                price, shares = map(float, args_str.split(","))
+                return price * shares
+        except:
+                return "Invalid input format. Use 'price, shares'"
+      
 def mock_llm(prompt: str) -> str:
-if "Observation:" not in prompt:
-return "Thought: I need to find the price of AAPL first.\nAction: get_stock_price: AAPL\nPAUSE"
-elif "150.0" in prompt and "calculate_investment" not in prompt:
-return "Thought: I have the price (150.0). Now I need to calculate the value for 10 shares.\nAction: calculate_investment: 150.0, 10\nPAUSE"
-else:
-return "Thought: I have the final calculation.\nAnswer: The total value of 10 AAPL shares is $1500.0."
-if name == "main":
+        if "Observation:" not in prompt:
+                return "Thought: I need to find the price of AAPL first.\nAction: get_stock_price: AAPL\nPAUSE"
+        elif "150.0" in prompt and "calculate_investment" not in prompt:
+                return "Thought: I have the price (150.0). Now I need to calculate the value for 10 shares.\nAction: calculate_investment: 150.0, 10\nPAUSE"
+        else:
+                return "Thought: I have the final calculation.\nAnswer: The total value of 10 AAPL shares is $1500.0."
+                
+if __name__ == "__main__":
 # Initialize Registry
 tools = {
 "get_stock_price": get_stock_price,
 "calculate_investment": calculate_investment
 }
-Code
+
 agent = ReActAgent(tools)
 
 # Run the agent
@@ -156,7 +155,7 @@ final_result = agent.run(
     llm_client=mock_llm
 )
 
-print(f"\n--- Final Result ---\n{final_result}")
+print(f"Final Result - {final_result}")
 
 # Sanity Check
 assert "1500" in final_result, "The agent failed to calculate the correct value."
