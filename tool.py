@@ -110,7 +110,7 @@ def execute(self, tool_name: str, arguments_json: str) -> Any:
         return f"Error: Argument mismatch: {str(e)}"
     except Exception as e:
         return f"Error during execution: {str(e)}"
---- Example Usage & Verification ---
+
 registry = ToolRegistry()
 @registry.register
 def get_weather(location: str, unit: str = "celsius"):
@@ -126,27 +126,27 @@ Calculates the Return on Investment.
 """
 amount = principal * (1 + rate) ** time_years
 return round(amount - principal, 2)
-if name == "main":
+if __name__ == "__main__":
 # 1. Verify Schema Generation
-schemas = registry.get_tool_schemas()
-print("Generated Tool Schema for LLM:")
-print(json.dumps(schemas, indent=2))
-Code
-# 2. Simulate LLM Tool Call
-# The LLM decides to call 'calculate_roi'
-tool_to_call = "calculate_roi"
-llm_args = '{"principal": 1000.0, "rate": 0.05, "time_years": 5}'
-
-print(f"\nExecuting {tool_to_call}...")
-result = registry.execute(tool_to_call, llm_args)
-print(f"Result: {result}")
-
-# 3. Test Error Handling (Missing required argument)
-bad_args = '{"principal": 1000.0}' # Missing 'rate' and 'time_years'
-error_result = registry.execute("calculate_roi", bad_args)
-print(f"\nError Handling Check: {error_result}")
-
-# Sanity Checks
-assert "get_weather" in registry.tools
-assert schemas[1]["function"]["parameters"]["required"] == ["principal", "rate", "time_years"]
-print("\nImplementation successful: Dynamic mapping and execution are robust.")
+    schemas = registry.get_tool_schemas()
+    print("Generated Tool Schema for LLM:")
+    print(json.dumps(schemas, indent=2))
+    
+    # 2. Simulate LLM Tool Call
+   
+    tool_to_call = "calculate_roi"
+    llm_args = '{"principal": 1000.0, "rate": 0.05, "time_years": 5}'
+    
+    print(f"\nExecuting {tool_to_call}...")
+    result = registry.execute(tool_to_call, llm_args)
+    print(f"Result: {result}")
+    
+    # 3. Test Error Handling (Missing required argument)
+    bad_args = '{"principal": 1000.0}' # Missing 'rate' and 'time_years'
+    error_result = registry.execute("calculate_roi", bad_args)
+    print(f"\nError Handling Check: {error_result}")
+    
+    # Sanity Checks
+    assert "get_weather" in registry.tools
+    assert schemas[1]["function"]["parameters"]["required"] == ["principal", "rate", "time_years"]
+    print("\nImplementation successful: Dynamic mapping and execution are robust.")
